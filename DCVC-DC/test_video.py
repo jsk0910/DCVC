@@ -68,7 +68,7 @@ def PSNR(input1, input2):
     return psnr.item()
 
 
-def run_test(p_frame_net, i_frame_net, args):
+def run_test(p_frame_net, i_frame_net, args): # Test Part
     frame_num = args['frame_num']
     gop_size = args['gop_size']
     write_stream = 'write_stream' in args and args['write_stream']
