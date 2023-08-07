@@ -73,7 +73,8 @@ def PSNR(input1, input2):
     return psnr.item()
 
 # Running Test
-def run_test(p_frame_net, i_frame_net, args): # Test Part
+def run_test(p_frame_net, i_frame_net, args):
+    # argument settings
     frame_num = args['frame_num']
     gop_size = args['gop_size']
     write_stream = 'write_stream' in args and args['write_stream']
@@ -81,6 +82,7 @@ def run_test(p_frame_net, i_frame_net, args): # Test Part
     verbose = args['verbose'] if 'verbose' in args else 0
     device = next(i_frame_net.parameters()).device
 
+    # type of frames
     if args['src_type'] == 'png':
         src_reader = PNGReader(args['src_path'], args['src_width'], args['src_height'])
     elif args['src_type'] == 'yuv420':
@@ -105,7 +107,7 @@ def run_test(p_frame_net, i_frame_net, args): # Test Part
     bits = []
     frame_pixel_num = 0
 
-    start_time = time.time()
+    start_time = time.time() # test start
     p_frame_number = 0
     overall_p_encoding_time = 0
     overall_p_decoding_time = 0
