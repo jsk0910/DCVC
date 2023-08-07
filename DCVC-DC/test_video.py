@@ -11,6 +11,8 @@ import time
 import torch
 import torch.nn.functional as F
 import numpy as np
+
+# Video Codec Files
 from src.models.video_model import DMC
 from src.models.image_model import IntraNoAR
 from src.utils.common import str2bool, create_folder, generate_log_json, dump_json
@@ -19,10 +21,13 @@ from src.utils.video_reader import PNGReader, YUVReader
 from src.utils.video_writer import PNGWriter, YUVWriter
 from src.utils.metrics import calc_psnr, calc_msssim
 from src.transforms.functional import ycbcr444_to_420, ycbcr420_to_444
+
+# 진행률 확인 모듈
 from tqdm import tqdm
+# ms-ssim 계산 모듈
 from pytorch_msssim import ms_ssim
 
-
+# argument parsing
 def parse_args():
     parser = argparse.ArgumentParser(description="Example testing script")
 
@@ -61,13 +66,13 @@ def np_image_to_tensor(img):
     image = image.unsqueeze(0)
     return image
 
-
+# PSNR 계산 모듈
 def PSNR(input1, input2):
     mse = torch.mean((input1 - input2) ** 2)
     psnr = 20 * torch.log10(1 / torch.sqrt(mse))
     return psnr.item()
 
-
+# Running Test
 def run_test(p_frame_net, i_frame_net, args): # Test Part
     frame_num = args['frame_num']
     gop_size = args['gop_size']
